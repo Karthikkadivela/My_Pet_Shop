@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital@1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+     
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pets Home</title>
+</head>
+<style>
+  .card-header{
+    font-family: 'Libre Baskerville', serif;
+    /* font-family: 'Scheherazade New', serif; */
+    font-weight: 1000;
+  }
+  .card-body{
+    font-family: 'Libre Baskerville', serif;
+  }
+</style>
+
+<body class="bg-dark bg-light" onload="reloadCard()">
+  <!-- Modal to fill details -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBJb6puD8Jx6OW_wM3eaEe-F3N0PhNprp_MQ&usqp=CAU" width="30" height="30" class="d-inline-block align-top" alt="">
+            Pets Home</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><i class="far fa-window-close"></i></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="imageUrl" class="form-label">Pet Image URL</label>
+            <input type="url" class="form-control" id="imageUrl" placeholder="Enter the Pet Image URL">
+          </div>
+          <div class="mb-3">
+            <label for="type" class="form-label">Pet Type</label>
+            <select class="form-select" aria-label="Default select example" id="petType">
+              <option value="Aquatic" selected>Aquatic</option>
+              <option value="Terrestrial">Terrestrial</option>
+              <option value="Aerial">Aerial</option>
+            </select>
+          </div>
+        <div class="mb-3">
+            <label for="petName" class="form-label">Pet Name</label>
+            <input type="text" class="form-control" id="petName" placeholder="Enter the name of the Pet">
+        </div>
+        <div class="mb-3">
+            <label for="petDes" class="form-label">Pet Description</label>
+            <textarea type="text" class="form-control" id="petDes" placeholder="Describe the details of the pet like age,country....."></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" aria-label="Default select example" id="status">
+              <option value="Available" selected>Available</option>
+              <option value="Out Of stock">Out Of Stock</option>
+              <option value="Unavailable">Unavailable</option>
+            </select>
+        </div>
+        <div class="mb-3">
+          <label for="price" class="form-label">Price</label>
+          <input type="number" class="form-control" id="price" placeholder="Enter the cost of the Pet">
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" data-bs-target="" onclick="addPet()">SAVE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Details Modal -->
+  <div class="modal fade" tabindex="-1" role="dialog" id="edit">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBJb6puD8Jx6OW_wM3eaEe-F3N0PhNprp_MQ&usqp=CAU" width="30" height="30" class="d-inline-block align-top" alt="">
+            Edit Pet Details</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><i class="far fa-window-close"></i></span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                <input type="text" class="form-control" id="i_D" hidden>
+            </div>
+            <div class="mb-3">
+              <label for="Url" class="form-label">Pet Image URL</label>
+              <input type="url" class="form-control" id="Url">
+            </div>
+            <div class="mb-3">
+              <label for="ptype" class="form-label">Pet Type</label>
+              <select class="form-select" aria-label="Default select example" id="ptype">
+                <option value="Aquatic">Aquatic</option>
+                <option value="Terrestrial">Terrestrial</option>
+                <option value="Aerial">Aerial</option>
+              </select>
+            </div>
+          <div class="mb-3">
+              <label for="pName" class="form-label">Pet Name</label>
+              <input type="text" class="form-control" id="pName">
+          </div>
+          <div class="mb-3">
+              <label for="pDes" class="form-label">Pet Description</label>
+              <textarea type="text" class="form-control" id="pDes"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="stat" class="form-label">Status</label>
+            <select class="form-select" aria-label="Default select example" id="stat">
+              <option value="Available">Available</option>
+              <option value="Out Of stock">Out Of Stock</option>
+              <option value="Unavailable">Unavailable</option>
+            </select>
+        </div>
+          <div class="mb-3">
+            <label for="cost" class="form-label">Price</label>
+            <input type="number" class="form-control" id="cost">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-target="" onclick="reedit()">SAVE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Description modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">About Page</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><i class="far fa-window-close"></i></span>
+          </button>
+        </div>
+        <div class="modal-body" id="userview">
+          <div>
+            <img class="card-img" alt="Card image cap" id="imgview">
+            <p class="mt-2" id="descpview"></p>
+          </div>
+        </div>
+        <div class="modal-footer p-1">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Navbar -->
+
+  <nav class="navbar navbar-expand-md navbar-light bg-secondary">
+    <div class="container-fluid" >
+        <a class="navbar-brand" href="#" style="color:white">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBJb6puD8Jx6OW_wM3eaEe-F3N0PhNprp_MQ&usqp=CAU" width="30" height="30" class="d-inline-block align-top" alt="">
+          Pets Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link" style="color:white" href="#">About Us</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" style="color:white" href="#">Our Services</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" style="color:white" href="#">Contact Us</a>
+              </li>
+            </ul>
+            <button type="button" class="btn btn-primary ml-5" data-toggle="modal" data-target="#exampleModal">
+              Add New Stock
+            </button>
+          </div>
+    </div>   
+</nav>
+
+              
+            
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox" style="padding:3%;margin-top: 2%;">
+
+      <!--First slide-->
+      <div class="carousel-item">
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card mb-2">
+              <img class="card-img-top" src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cGV0c3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                   alt="Card image cap" height="300px">
+            </div>
+          </div>
+          <div class="col-md-4 clearfix d-none d-md-block">
+            <div class="card mb-2">
+              <img class="card-img-top" src="https://news.cgtn.com/news/7959544e314d544e3445444d344d544e7a676a4e31457a6333566d54/img/e468e4c5fdc14ed38f7fc9c365d5fbfe/e468e4c5fdc14ed38f7fc9c365d5fbfe.jpg"
+                   alt="Card image cap" height="300px">
+            </div>
+          </div>
+          <div class="col-md-4 clearfix d-none d-md-block">
+            <div class="card mb-2">
+              <img class="card-img-top" src="https://images.unsplash.com/photo-1578493853264-d130498360a4?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8cGV0JTIwbG92ZSUyMGJpcmRzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                   alt="Card image cap" height="300px">
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!--/.First slide-->
+
+      <!--Second slide-->
+      <div class="carousel-item active">
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card mb-2">
+              <img class="card-img-top" src="https://images.unsplash.com/photo-1567191920612-4d773c725546?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDJ8fGZpc2hlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                   alt="Card image cap" height="300px">
+            </div>
+          </div>
+          <div class="col-md-4 clearfix d-none d-md-block">
+            <div class="card mb-2">
+              <img class="card-img-top" src="https://images.unsplash.com/photo-1630771077377-674b39a13f58?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDZ8fGZpc2hlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                   alt="Card image cap" height="300px">
+            </div>
+          </div>
+          <div class="col-md-4 clearfix d-none d-md-block">
+            <div class="card mb-2">
+              <img class="card-img-top" src="https://images.unsplash.com/photo-1578507065211-1c4e99a5fd24?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzB8fGJldGElMjBmaXNofGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                   alt="Card image cap" height="300px">
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!--/.Second slide-->
+
+      <!--Third slide-->
+      <div class="carousel-item">
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card mb-2">
+              <img class="card-img-top" src="https://images.unsplash.com/photo-1603805982042-8016b8a1c5f0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzN8fGJldGElMjBmaXNofGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                   alt="Card image cap" height="300px">
+            </div>
+          </div>
+
+          <div class="col-md-4 clearfix d-none d-md-block">
+            <div class="card mb-2">
+              <img class="card-img-top" src="https://images.unsplash.com/photo-1542454520-7455ce6eb991?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDJ8fGdvbGQlMjBmaXNofGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                   alt="Card image cap" height="300px">
+            </div>
+          </div>
+
+          <div class="col-md-4 clearfix d-none d-md-block">
+            <div class="card mb-2">
+              <img class="card-img-top" src="https://images.unsplash.com/photo-1545084622-206b832aa82b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTh8fGdvbGQlMjBmaXNofGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                   alt="Card image cap" height="300px">
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!--/.Third slide-->
+    </div>
+    <!--/.Slides-->
+  </div>
+  <!--/.Carousel Wrapper-->
+  <main class="container">
+    <!-- <div class="input-group rounded"> -->
+      <div class="row input-group rounded" style="margin-left: 30%;margin-top:25px;width:50%;" >
+        <input type="search" id="myInput" class="form-control rounded" placeholder="Enter the name of the Pet" onkeyup="search();" aria-label="Search" />
+        <!-- <span class="input-group-text border-0" id="search-addon">
+          <i class="fas fa-search"></i>
+        </span> -->
+      </div>  
+    <!-- </div> -->
+      <section>
+          <div class="row" style="margin-bottom: 20%;" id="petList">
+            <!-- <ul class="row" id="petList">
+
+            </ul> -->
+          </div>
+      </section>
+
+  </main>
+
+  <footer class="bg-dark text-center text-white fixed-bottom">
+    <!-- Grid container -->
+    <div class="container p-2 pb-0">
+      <!-- Section: Social media -->
+      <section class="mb-2">
+        <!-- Facebook -->
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+  
+        <!-- Twitter -->
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+          ><i class="fab fa-twitter"></i
+        ></a>
+  
+        <!-- Google -->
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+          ><i class="fab fa-google"></i
+        ></a>
+  
+        <!-- Instagram -->
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+          ><i class="fab fa-instagram"></i
+        ></a>
+  
+        <!-- Linkedin -->
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+          ><i class="fab fa-linkedin-in"></i
+        ></a>
+  
+        <!-- Github -->
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+          ><i class="fab fa-github"></i
+        ></a>
+      </section>
+      <!-- Section: Social media -->
+    </div>
+    <!-- Grid container -->
+  
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2021 Copyright:
+      <a class="text-white" href="https://www.peopleforanimalsbangalore.org/">PetsHome.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="index.js"></script>   
+</body>
+</html>
