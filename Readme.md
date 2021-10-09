@@ -1,0 +1,1 @@
+This is a 2nd assignment in my internship at ShapeAi as a Mern stack intern. I have done this assignment including all the CRUD operations. And the languages used were HTML,CSS and JS. The localStorage on every client side who will view the project , will be the database of the respective user.Deployed at https://condescending-meitner-e132cf.netlify.app/
