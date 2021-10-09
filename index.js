@@ -13,6 +13,13 @@ const addPet=()=>{
     petList.insertAdjacentHTML('beforeend',generateCard(addDetails));
     global.push(addDetails);
     saveToLocal();
+    document.getElementById("imageUrl").value="";
+    document.getElementById("petType").value="";
+    document.getElementById("petName").value="";
+    document.getElementById("petDes").value="";
+    document.getElementById("status").value="";
+    document.getElementById("price").value="";
+
     console.log(global);
 }
 
