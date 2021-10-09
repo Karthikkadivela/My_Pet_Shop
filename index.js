@@ -33,7 +33,7 @@ const generateCard= ({img,id,petType,petName,status,price}) =>{
                                 <button type="button" class="btn btn-outline-danger ms-2" onclick="deleteDetail(${id})">
                                         <i class="far fa-trash-alt"></i>
                                 </button>
-                                <a type="button" class="btn btn-outline-success ms-2" href="https://api.whatsapp.com/send?text=<search=${petName}>">
+                                <a type="button" class="btn btn-outline-success ms-2" href="https://api.whatsapp.com/send?text=Hello guys this is my online pet store.Visit now @ https://condescending-meitner-e132cf.netlify.app/">
                                     <i class="fas fa-share pt-2"></i>
                                 </a>
                             </div>
